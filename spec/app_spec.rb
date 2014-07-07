@@ -46,6 +46,20 @@ feature "view contacts" do
     expect(page).to have_content "Jeff D."
     expect(page).to have_content "jd@example.com"
     expect(page).to have_content "Mike"
-    expect(page).to have_content "mike@example.comm"
+    expect(page).to have_content "mike@example.com"
+  end
+end
+
+feature "logout" do
+  scenario "user should logout and not see welcome" do
+    visit '/login'
+
+    fill_in "username", :with => "Jeff"
+    fill_in "password", :with => "jeff123"
+    click_button "Submit"
+
+    click_button "Logout"
+
+    expect(page).to have_link("Login")
   end
 end

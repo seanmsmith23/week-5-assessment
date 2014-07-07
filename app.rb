@@ -40,4 +40,9 @@ class ContactsApp < Sinatra::Base
     redirect '/'
   end
 
+  post "/signout" do
+    session.delete(:user_id)
+    redirect '/'
+  end
+
 end

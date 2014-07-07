@@ -15,7 +15,7 @@ def contact_generator(user)
   contacts = @contact_database.find_for_user(user)
 
   output = contacts.map do |hash|
-    '<li>' + "Name: #{hash[:name]}" + " Email: #{hash[:email]}" + '</li>'
+    '<li>' + hash[:name] + '</li>' + '<li>' + hash[:email] + '</li>'
   end
   output.join
 end
