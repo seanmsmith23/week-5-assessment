@@ -18,17 +18,34 @@ feature "homepage" do
     expect(page).to have_content("Password")
     expect(page).to have_button("Submit")
   end
+end
 
 feature "login" do
   scenario "user should be able to login and then no longer see the login form. they should also see their name" do
     visit '/login'
 
-    fill_in "username", :with => "Spencer"
+    fill_in "username", :with => "Jeff"
     fill_in "password", :with => "pen@example.com"
     click_button "Submit"
 
-    expect(page).to have_content "Welcome, Spencer"
+    expect(page).to have_content "Welcome, Jeff"
     expect(page).to_not have_link "Login"
   end
 end
+
+feature "view contacts" do
+  scenario "user should visit the home page and see a list of their contacts" do
+    visit '/login'
+
+    fill_in "username", :with => "Jeff"
+    fill_in "password", :with => "jeff123"
+    click_button "Submit"
+
+    expect(page).to have_content "Spencer"
+    expect(page).to have_content "spen@example.com"
+    expect(page).to have_content "Jeff D."
+    expect(page).to have_content "jd@example.com"
+    expect(page).to have_content "Mike"
+    expect(page).to have_content "mike@example.comm"
+  end
 end

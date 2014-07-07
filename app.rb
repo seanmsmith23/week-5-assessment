@@ -2,6 +2,7 @@ require "sinatra"
 require "./lib/database"
 require "./lib/contact_database"
 require "./lib/user_database"
+require_relative "model"
 
 class ContactsApp < Sinatra::Base
   enable :sessions
@@ -21,7 +22,12 @@ class ContactsApp < Sinatra::Base
   end
 
   get "/" do
-    erb :homepage
+
+    if session[:user_id]
+      erb :loggedin, :locals => { :name => find_users_name(session[:user_id]), :contact_info => contact_generator(session[:user_id]) }
+    else
+      erb :homepage
+    end
   end
 
   get "/login" do
@@ -30,9 +36,8 @@ class ContactsApp < Sinatra::Base
 
   post "/login" do
     user = params[:username]
-    password = params[:password]
-
-    erb :loggedin, :locals => { :name => user }
+    creates_session_id(user)
+    redirect '/'
   end
 
 end
