@@ -28,4 +28,11 @@ class ContactsApp < Sinatra::Base
     erb :login
   end
 
+  post "/login" do
+    user = params[:username]
+    password = params[:password]
+
+    erb :loggedin, :locals => { :name => user }
+  end
+
 end
