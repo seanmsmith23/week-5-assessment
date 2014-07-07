@@ -21,7 +21,11 @@ class ContactsApp < Sinatra::Base
   end
 
   get "/" do
-    "Contacts"
+    erb :homepage
+  end
+
+  get "/login" do
+    erb :login
   end
 
 end
